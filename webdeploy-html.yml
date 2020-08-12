@@ -18,9 +18,9 @@ spec:
         app: webserver
     spec:
       volumes:
-        - name: html-pv-vol
+        - name: html-pv
           persistentVolumeClaim:
-            claimName: html-pv-vol-claim
+            claimName: html-pv-claim
         
       containers:
         - name: html-deploy
@@ -28,4 +28,4 @@ spec:
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: "/var/log/httpd"
-              name: html-pv-vol
+              name: html-pv
