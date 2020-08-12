@@ -94,25 +94,3 @@ steps {
   }
 }
 
-
-job("R") {
-
-
-triggers {
-    upstream {
-      upstreamProjects("Monitor")
-      threshold("FAILURE")
-    }
-  }
-  
-  
-  publishers {
-    postBuildScripts {
-      steps {
-        downstreamParameterized {
-  	  	  trigger("DT6Job1"0
-        }
-      }
-    }
-  }
-}
