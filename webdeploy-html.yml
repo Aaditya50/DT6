@@ -24,7 +24,7 @@ spec:
         
       containers:
         - name: html-deploy
-          image: aaditya5/aadihtml:v1
+          image: aaditya5/html:v1
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: "/var/log/httpd"
