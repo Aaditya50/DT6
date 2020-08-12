@@ -1,4 +1,4 @@
-job("GroovyCodeInterpreter") {
+job("DT6Job1") {
 steps {
 
 
@@ -49,12 +49,12 @@ tagsString("aaditya5/php:v1")
 }
 
 
-job("GroovyDeployment") {
+job("DT6Job2") {
 
 
   triggers {
     upstream {
-      upstreamProjects("GroovyCodeInterpreter")
+      upstreamProjects("DT6Job1")
       threshold("SUCCESS")
     }  
   }
@@ -64,7 +64,7 @@ job("GroovyDeployment") {
     if(shell("ls /root/DT6 | grep html")) {
 
 
-      shell("if sudo kubectl get pv html-pv; then if sudo kubectl get pvc html-pv-claim; then echo "Given volume present"; else kubectl create -f html-pv-claim.yml; fi; else sudo kubectl create -f html-pv.yml; sudo kubectl create -f html-pv-claim.yml; fi; if sudo kubectl get deployments html-deploy; then sudo kubectl rollout restart deployment/html-deploy; sudo kubectl rollout status deployment/html-deploy; else sudo kubectl create -f webdeploy-html.yml; sudo kubectl create -f webserver_expose.yml; sudo kubectl get all; fi")       
+      shell("if sudo kubectl get pv html-pv; then if sudo kubectl get pvc html-pv-claim; then echo "volume present"; else kubectl create -f html-pv-claim.yml; fi; else sudo kubectl create -f html-pv.yml; sudo kubectl create -f html-pv-claim.yml; fi; if sudo kubectl get deployments html-deploy; then sudo kubectl rollout restart deployment/html-deploy; sudo kubectl rollout status deployment/html-deploy; else sudo kubectl create -f webdeploy-html.yml; sudo kubectl create -f webserver_expose.yml; sudo kubectl get all; fi")       
 
 
   }
@@ -81,7 +81,7 @@ job("GroovyDeployment") {
 }
 
 
-job("Monitor") {
+job("DT6Job3;){
   
   triggers {
      scm("* * * * *")
@@ -90,12 +90,12 @@ job("Monitor") {
 
 steps {
     
-    shell('export status=$(curl -siw "%{http_code}" -o /dev/null 192.168.99.100:50000); if [ $status -eq 200 ]; then exit 0; else python3 mail.py; exit 1; fi')
+    shell('export status=$(curl -siw "%{http_code}" -o /dev/null 192.168.99.100:30033); if [ $status -eq 200 ]; then exit 0; else python3 mail.py; exit 1; fi')
   }
 }
 
 
-job("Redeployment") {
+job("R") {
 
 
 triggers {
@@ -110,7 +110,7 @@ triggers {
     postBuildScripts {
       steps {
         downstreamParameterized {
-  	  	  trigger("GroovyCodeInterpreter")
+  	  	  trigger("DT6Job1"0
         }
       }
     }
