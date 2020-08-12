@@ -90,7 +90,7 @@ job("DT6Job3;){
 
 steps {
     
-    shell('export status=$(curl -siw "%{http_code}" -o /dev/null 192.168.99.100:30033); if [ $status -eq 200 ]; then exit 0; else python3 mail.py; exit 1; fi')
+    shell('export status=$(curl -siw "%{http_code}" -o /dev/null 192.168.99.100:30033); if [ $status -eq 200 ]; then exit 0; echo "done"; exit 1; fi')
   }
 }
 
